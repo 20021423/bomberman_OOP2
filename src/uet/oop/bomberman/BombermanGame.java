@@ -8,6 +8,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.staticEntities.Flame;
+import uet.oop.bomberman.entities.staticEntities.Grass;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.input.Keyboard;
 
@@ -24,6 +26,15 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private static List<Entity> stillObjects = new ArrayList<>();
+    private static List<Flame> flames = new ArrayList<>();
+    private static List<Entity> bombs = new ArrayList<>();
+    private static List<Entity> walls = new ArrayList<>();
+    private static List<Entity> portals = new ArrayList<>();
+    private static List<Entity> bricks = new ArrayList<>();
+    private static List<Entity> items = new ArrayList<>();
+    private static List<Entity> enemies = new ArrayList<>();
+    private static List<Grass> grasses = new ArrayList<>();
+//    private static List<Enemy> dead = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -88,8 +99,24 @@ public class BombermanGame extends Application {
     }
 
     public void render() {
+//        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        stillObjects.forEach(g -> g.render(gc));
+//        entities.forEach(g -> g.render(gc));
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+        grasses.forEach(grass -> grass.render(gc));
+        walls.forEach(wall -> wall.render(gc));
+        portals.forEach(portal -> portal.render(gc));
+        items.forEach(item -> item.render(gc));
+        for (Flame flame : flames) {
+            flame.get_flameSegments().forEach(flameSegment -> flameSegment.render(gc));
+        }
+        bricks.forEach(brick -> brick.render(gc));
+        enemies.forEach(enemy -> enemy.render(gc));
+        bombs.forEach(g -> g.render(gc));
+//        dead.forEach(dead->dead.render(gc));
+//        if (bomber != null) {
+//            bomber.render(gc);
+//        }
     }
 }
