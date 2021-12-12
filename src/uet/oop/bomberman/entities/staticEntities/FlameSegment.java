@@ -87,18 +87,18 @@ public class FlameSegment extends StaticEntity implements Animated {
      * hàm xử lý va chạm của FlameSegment.
      */
     public void collisionHandling() {
-//        Entity entity = BombermanGame.getEntityAt(tile.getX(), tile.getY());
-//        if (entity instanceof AnimatedEntity) {
-//            if (!((AnimatedEntity) entity).is_flamepass()) {
+        Entity entity = BombermanGame.getEntityAt(tile.getX(), tile.getY());
+        if (entity instanceof AnimatedEntity) {
+            if (!((AnimatedEntity) entity).is_flamepass()) {
 //                if (entity instanceof Bomber && ((Bomber) entity).is_alive()) {
 //                    Bomber.bomber_life--;
 //                    GameSound.playMusic(GameSound.BOMBER_DIE);
 //                }
-//                ((AnimatedEntity) entity).die();
-//            }
-//        }
-//        if (entity instanceof Brick) {
-//            ((Brick) entity).remove();
-//        }
+                ((AnimatedEntity) entity).die();
+            }
+        }
+        if (entity instanceof Brick) {
+            ((Brick) entity).remove();
+        }
     }
 }

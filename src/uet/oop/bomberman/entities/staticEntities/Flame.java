@@ -24,7 +24,7 @@ public class Flame extends StaticEntity {
         if (time > 0) {
             _flameSegments.forEach(FlameSegment::update);
         } else {
-            // BombermanGame.removeFlame();
+             BombermanGame.removeFlame();
         }
     }
 
@@ -66,26 +66,26 @@ public class Flame extends StaticEntity {
                     yt = y;
                     break;
             }
-//            Entity entity = BombermanGame.getEntityAt(xt, yt);
-//            if (entity instanceof Wall) { // gặp tường thì cắt bớt độ dài của flame
-//                radius = i - 1;
-//            } else if (entity instanceof Brick) { // gặp brick thì set lại độ dài flame
-//                radius = i;
-//                // thêm flagment ở đuôi flame vào mảng flame
-//                _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
-//                Brick brick = (Brick) entity;
-//                brick.remove();
-//            } else if (entity instanceof Bomb) { // flame gặp bomb thì cho nổ ngay lập tức
-//                radius = i - 1;
-//                ((Bomb) entity)._timeToExplode = 0;
-//
-//            } else {
-//                if (i == radius) { // flamesegment đuôi có hình ảnh khác với thân
-//                    _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
-//                } else {
-//                    _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, false));
-//                }
-//            }
+            Entity entity = BombermanGame.getEntityAt(xt, yt);
+            if (entity instanceof Wall) { // gặp tường thì cắt bớt độ dài của flame
+                radius = i - 1;
+            } else if (entity instanceof Brick) { // gặp brick thì set lại độ dài flame
+                radius = i;
+                // thêm flagment ở đuôi flame vào mảng flame
+                _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
+                Brick brick = (Brick) entity;
+                brick.remove();
+            } else if (entity instanceof Bomb) { // flame gặp bomb thì cho nổ ngay lập tức
+                radius = i - 1;
+                ((Bomb) entity)._timeToExplode = 0;
+
+            } else {
+                if (i == radius) { // flamesegment đuôi có hình ảnh khác với thân
+                    _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
+                } else {
+                    _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, false));
+                }
+            }
         }
     }
 

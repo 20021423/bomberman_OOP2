@@ -11,6 +11,7 @@ import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Enemy;
+import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Flame;
 import uet.oop.bomberman.entities.staticEntities.Grass;
 import uet.oop.bomberman.graphics.Sprite;
@@ -173,6 +174,14 @@ public class BombermanGame extends Application {
             AnimatedEntity enemy = (AnimatedEntity) _enemy;
             enemy.update();
         }
+    }
+
+    public static void removeFlame() {
+        flames.remove(0);
+    }
+
+    public static void removeBrick(Brick brick) {
+        bricks.remove(brick);
     }
 
     public static void setStillObjects(Entity entity) {
