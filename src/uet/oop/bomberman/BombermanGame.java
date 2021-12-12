@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.enemies.Balloon;
+import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.Flame;
 import uet.oop.bomberman.entities.staticEntities.Grass;
 import uet.oop.bomberman.graphics.Sprite;
@@ -15,12 +18,14 @@ import uet.oop.bomberman.input.Keyboard;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
+    private static int _points = 0;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -34,11 +39,83 @@ public class BombermanGame extends Application {
     private static List<Entity> items = new ArrayList<>();
     private static List<Entity> enemies = new ArrayList<>();
     private static List<Grass> grasses = new ArrayList<>();
-//    private static List<Enemy> dead = new ArrayList<>();
+    private static List<Enemy> dead = new ArrayList<>();
 
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
+    }
+
+    public static void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+
+    public static void addPoints(int points) {
+        _points += points;
+    }
+
+    public static void removeDead(Enemy enemy) {
+        BombermanGame.dead.remove(enemy);
+    }
+
+    public static void setEnemy(Enemy enemy) {
+        BombermanGame.enemies.add(enemy);
+    }
+
+    public static Entity getEntityAt(int x, int y) {
+        Entity entity;
+        entity = get(walls, x, y);
+        if (entity != null) {
+            return entity;
+        }
+        entity = get(bricks, x, y);
+        if (entity != null) {
+            return entity;
+        }
+
+        entity = get(bombs, x, y);
+        if (entity != null) {
+            return entity;
+        }
+        entity = get(portals, x, y);
+        if (entity != null) {
+            return entity;
+        }
+        entity = get(items, x, y);
+        if (entity != null) {
+            return entity;
+        }
+        entity = get(enemies, x, y);
+        if (entity != null) {
+            return entity;
+        }
+//        if (bomber != null
+//                && bomber.getTile().getX() == x
+//                && bomber.getTile().getY() == y) {
+//            entity = bomber;
+//        }
+        return entity;
+    }
+
+    public static Entity get(List<Entity> entities, int x, int y) {
+        Iterator<Entity> itr = entities.iterator();
+        Entity cur;
+        Entity entity = null;
+        while (itr.hasNext()) {
+            cur = itr.next();
+            if (cur.getTile().getY() == y && cur.getTile().getX() == x) {
+                entity = cur;
+            }
+//            if (cur instanceof Boss) {
+//                Boss boss = (Boss) cur;
+//                for (Coordinates tile : boss.getTiles()) {
+//                    if (tile.getX() == x && tile.getY() == y) {
+//                        entity = boss;
+//                    }
+//                }
+//            }
+        }
+        return entity;
     }
 
     @Override
@@ -92,6 +169,10 @@ public class BombermanGame extends Application {
 
     public void update() {
         //entities.forEach(Entity::update);
+        for (Entity _enemy : enemies) {
+            AnimatedEntity enemy = (AnimatedEntity) _enemy;
+            enemy.update();
+        }
     }
 
     public static void setStillObjects(Entity entity) {
@@ -112,11 +193,12 @@ public class BombermanGame extends Application {
             flame.get_flameSegments().forEach(flameSegment -> flameSegment.render(gc));
         }
         bricks.forEach(brick -> brick.render(gc));
-        enemies.forEach(enemy -> enemy.render(gc));
+        //enemies.forEach(enemy -> enemy.render(gc));
         bombs.forEach(g -> g.render(gc));
 //        dead.forEach(dead->dead.render(gc));
 //        if (bomber != null) {
 //            bomber.render(gc);
 //        }
+        enemies.forEach(enemy -> enemy.render(gc));
     }
 }

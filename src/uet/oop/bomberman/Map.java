@@ -1,5 +1,6 @@
 package uet.oop.bomberman;
 
+import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Grass;
 import uet.oop.bomberman.entities.staticEntities.Wall;
@@ -69,9 +70,9 @@ public class Map {
 //                        BombermanGame.setItem(new BombsItem(new Coordinates(j, i)));
 //                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
 //                        break;
-//                    case '1':
-//                        BombermanGame.setEnemy(new Balloom(new Coordinates(j, i)));
-//                        break;
+                    case '1':
+                        BombermanGame.setEnemy(new Balloon(new Coordinates(j, i)));
+                        break;
 //                    case '2':
 //                        BombermanGame.setEnemy(new Oneal(new Coordinates(j, i)));
 //                        break;

@@ -43,6 +43,7 @@ public class FlameSegment extends StaticEntity implements Animated {
         collisionHandling();
 
     }
+
     protected void chooseSprite() {
         switch (_direction) {
             case CENTER:

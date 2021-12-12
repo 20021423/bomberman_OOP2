@@ -1,6 +1,10 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
+import uet.oop.bomberman.entities.staticEntities.Bomb;
+import uet.oop.bomberman.entities.staticEntities.Brick;
+import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class AnimatedEntity extends Entity implements Animated {
@@ -49,9 +53,8 @@ public abstract class AnimatedEntity extends Entity implements Animated {
     protected abstract void afterDie();
 
     protected boolean canMoveToDirection(int x, int y) {
-//        Entity entity = BombermanGame.getEntityAt(tile.getX() + x, tile.getY() + y);
-//        return !(entity instanceof Wall) && (_brickpass || !(entity instanceof Brick)) && (_bombpass || !(entity instanceof Bomb));
-        return false;
+        Entity entity = BombermanGame.getEntityAt(tile.getX() + x, tile.getY() + y);
+        return !(entity instanceof Wall) && (_brickpass || !(entity instanceof Brick)) && (_bombpass || !(entity instanceof Bomb));
     }
 
 

@@ -7,7 +7,7 @@ import uet.oop.bomberman.entities.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Flame extends StaticEntity{
+public class Flame extends StaticEntity {
     protected int time = 30;  // thời gian để nổ ra 4 phía
     protected int frame = -1;
     protected List<FlameSegment> _flameSegments;
@@ -24,7 +24,7 @@ public class Flame extends StaticEntity{
         if (time > 0) {
             _flameSegments.forEach(FlameSegment::update);
         } else {
-           // BombermanGame.removeFlame();
+            // BombermanGame.removeFlame();
         }
     }
 
@@ -88,6 +88,7 @@ public class Flame extends StaticEntity{
 //            }
         }
     }
+
     public List<FlameSegment> get_flameSegments() {
         return _flameSegments;
     }
