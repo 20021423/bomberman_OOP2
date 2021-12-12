@@ -11,9 +11,7 @@ import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Enemy;
-import uet.oop.bomberman.entities.staticEntities.Brick;
-import uet.oop.bomberman.entities.staticEntities.Flame;
-import uet.oop.bomberman.entities.staticEntities.Grass;
+import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.input.Keyboard;
 
@@ -170,10 +168,28 @@ public class BombermanGame extends Application {
 
     public void update() {
         //entities.forEach(Entity::update);
+        flames.forEach(Flame::update);
+        for (Entity _brick : bricks) {
+            Brick brick = (Brick) _brick;
+            brick.update();
+        }
         for (Entity _enemy : enemies) {
             AnimatedEntity enemy = (AnimatedEntity) _enemy;
             enemy.update();
         }
+
+        for (Entity _bomb : bombs) {
+            Bomb bomb = (Bomb) _bomb;
+            bomb.update();
+        }
+        for (Entity _enemy : dead) {
+            AnimatedEntity enemy = (AnimatedEntity) _enemy;
+            enemy.update();
+        }
+
+//        if (bomber != null) {
+//            bomber.update();
+//        }
     }
 
     public static void removeFlame() {
@@ -209,5 +225,17 @@ public class BombermanGame extends Application {
 //            bomber.render(gc);
 //        }
         enemies.forEach(enemy -> enemy.render(gc));
+    }
+
+    public static void setGrass(Grass grass) {
+        BombermanGame.grasses.add(grass);
+    }
+
+    public static void setWall(Wall wall) {
+        BombermanGame.walls.add(wall);
+    }
+
+    public static void setBrick(Brick brick) {
+        BombermanGame.bricks.add(brick);
     }
 }

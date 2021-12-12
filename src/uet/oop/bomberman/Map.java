@@ -1,6 +1,7 @@
 package uet.oop.bomberman;
 
 import uet.oop.bomberman.entities.enemies.Balloon;
+import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Grass;
 import uet.oop.bomberman.entities.staticEntities.Wall;
@@ -40,13 +41,13 @@ public class Map {
             String map = br.readLine();
             //System.out.println(map);
             for (int j = 0; j < cols; j++) {
-                BombermanGame.setStillObjects(new Grass(new Coordinates(j, i)));
+                BombermanGame.setGrass(new Grass(new Coordinates(j, i)));
                 switch (map.charAt(j)) {
                     case '#':
-                        BombermanGame.setStillObjects(new Wall(new Coordinates(j, i)));
+                        BombermanGame.setWall(new Wall(new Coordinates(j, i)));
                         break;
                     case '*':
-                        BombermanGame.setStillObjects(new Brick(new Coordinates(j, i)));
+                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
                         break;
 //                    case 'x':
 //                        BombermanGame.setPortal(new Portal(new Coordinates(j, i)));
@@ -73,18 +74,20 @@ public class Map {
                     case '1':
                         BombermanGame.setEnemy(new Balloon(new Coordinates(j, i)));
                         break;
-//                    case '2':
-//                        BombermanGame.setEnemy(new Oneal(new Coordinates(j, i)));
-//                        break;
+                    case '2':
+                        BombermanGame.setEnemy(new Oneal(new Coordinates(j, i)));
+                        break;
 //                    case '3':
-//                        BombermanGame.setEnemy(new Ghost(new Coordinates(j, i)));
+//                        BombermanGame.setEnemy(new Ghost(new Coordinates(j,i)));
 //                        break;
 //                    case '4':
-//                        BombermanGame.setEnemy(new Minvo(new Coordinates(j, i)));
+//                        BombermanGame.setEnemy(new Minvo(new Coordinates(j,i)));
 //                        break;
 //                    case '5':
-//                        BombermanGame.setEnemy(new Kondoria(new Coordinates(j, i)));
+//                        BombermanGame.setEnemy(new Kondoria(new Coordinates(j,i)));
 //                        break;
+                    default:
+                        break;
                 }
             }
         }
