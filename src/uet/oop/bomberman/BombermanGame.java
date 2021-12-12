@@ -17,13 +17,13 @@ import java.util.List;
 
 public class BombermanGame extends Application {
 
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
+    public static final int WIDTH = 31;
+    public static final int HEIGHT = 13;
 
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    private static List<Entity> stillObjects = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class BombermanGame extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -62,7 +62,7 @@ public class BombermanGame extends Application {
 //        entities.add(bomberman);
     }
 
-    public void createMap() {
+    public void createMap() throws IOException {
 //        for (int i = 0; i < WIDTH; i++) {
 //            for (int j = 0; j < HEIGHT; j++) {
 //                Entity object;
@@ -75,10 +75,16 @@ public class BombermanGame extends Application {
 //                stillObjects.add(object);
 //            }
 //        }
+
+        Map.getInstance().loadMap(1);
     }
 
     public void update() {
         //entities.forEach(Entity::update);
+    }
+
+    public static void setStillObjects(Entity entity) {
+        stillObjects.add(entity);
     }
 
     public void render() {
