@@ -144,5 +144,4 @@ public class Bomber extends AnimatedEntity {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
 }

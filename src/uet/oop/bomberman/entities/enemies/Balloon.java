@@ -12,16 +12,16 @@ public class Balloon extends Enemy {
     }
 
     @Override
-    protected void handleDirection() {
+    protected void handleDirection() { // Coordinate d là tọa độ tile để xác định hướng
         if (d.getX() == 0) {
             if (xa == -speed) {
-                if (canMoveToDirection(-1, 0)) {
+                if (canMoveToDirection(-1, 0)) { // đi trên cỏ về phía bên trái và cập nhật hoành độ mới
                     d.setX(-Sprite.SCALED_SIZE);
-                } else {
+                } else { // trường hợp va vào thực thể khác thì sẽ đi dọc
                     xa = 0;
-                    if (canMoveToDirection(0, -1)) {
+                    if (canMoveToDirection(0, -1)) { // trường hợp đi lên trên
                         ya = -speed;
-                    } else {
+                    } else { // đi xuống dưới
                         ya = speed;
                     }
                 }

@@ -139,6 +139,7 @@ public class BombermanGame extends Application {
             bomber.addBomb();
         }
     }
+
     @Override
     public void start(Stage stage1) throws IOException {
         stage = stage1;
@@ -194,7 +195,6 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        //entities.forEach(Entity::update);
         flames.forEach(Flame::update);
         for (Entity _brick : bricks) {
             Brick brick = (Brick) _brick;
@@ -247,13 +247,12 @@ public class BombermanGame extends Application {
         bricks.forEach(brick -> brick.render(gc));
         //enemies.forEach(enemy -> enemy.render(gc));
         bombs.forEach(g -> g.render(gc));
-        dead.forEach(dead->dead.render(gc));
+        dead.forEach(dead -> dead.render(gc));
         if (bomber != null) {
             bomber.render(gc);
         }
         enemies.forEach(enemy -> enemy.render(gc));
     }
-
 
 
     public static void setGrass(Grass grass) {
@@ -262,6 +261,17 @@ public class BombermanGame extends Application {
 
     public static void setWall(Wall wall) {
         BombermanGame.walls.add(wall);
+    }
+
+    public static void setFlame(Flame flame) {
+        flames.add(flame);
+    }
+
+    public static void removeBomb() {
+        bombs.remove(0);
+        if (bomber != null) {
+            bomber.addBomb();
+        }
     }
 
     public static void setBrick(Brick brick) {

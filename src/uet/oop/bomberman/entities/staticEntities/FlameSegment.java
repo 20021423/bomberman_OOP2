@@ -4,6 +4,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
 import uet.oop.bomberman.entities.Animated;
 import uet.oop.bomberman.entities.AnimatedEntity;
+import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -90,10 +91,10 @@ public class FlameSegment extends StaticEntity implements Animated {
         Entity entity = BombermanGame.getEntityAt(tile.getX(), tile.getY());
         if (entity instanceof AnimatedEntity) {
             if (!((AnimatedEntity) entity).is_flamepass()) {
-//                if (entity instanceof Bomber && ((Bomber) entity).is_alive()) {
-//                    Bomber.bomber_life--;
-//                    GameSound.playMusic(GameSound.BOMBER_DIE);
-//                }
+                if (entity instanceof Bomber && ((Bomber) entity).is_alive()) {
+                    Bomber.bomber_life--;
+                    //GameSound.playMusic(GameSound.BOMBER_DIE);
+                }
                 ((AnimatedEntity) entity).die();
             }
         }
