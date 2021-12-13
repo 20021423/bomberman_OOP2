@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
+import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.Bomb;
 import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Wall;
@@ -45,9 +46,9 @@ public abstract class AnimatedEntity extends Entity implements Animated {
         if (!_alive) return;
         this._alive = false;
         _animate = 0;
-//        if (this instanceof Enemy) {
-//            BombermanGame.setDead((Enemy) this);
-//        }
+        if (this instanceof Enemy) {
+            BombermanGame.setDead((Enemy) this);
+        }
     }
 
     protected abstract void afterDie();

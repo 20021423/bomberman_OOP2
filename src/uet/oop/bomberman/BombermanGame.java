@@ -32,7 +32,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private static Bomber bomber;
     private List<Entity> entities = new ArrayList<>();
-    private static List<Entity> stillObjects = new ArrayList<>();
+    //    private static List<Entity> stillObjects = new ArrayList<>();
     private static List<Flame> flames = new ArrayList<>();
     private static List<Entity> bombs = new ArrayList<>();
     private static List<Entity> walls = new ArrayList<>();
@@ -140,6 +140,10 @@ public class BombermanGame extends Application {
         }
     }
 
+    public static void setDead(Enemy enemy) {
+        BombermanGame.dead.add((Enemy) enemy);
+    }
+
     @Override
     public void start(Stage stage1) throws IOException {
         stage = stage1;
@@ -227,16 +231,16 @@ public class BombermanGame extends Application {
         bricks.remove(brick);
     }
 
-    public static void setStillObjects(Entity entity) {
-        stillObjects.add(entity);
-    }
+//    public static void setStillObjects(Entity entity) {
+//        stillObjects.add(entity);
+//    }
 
     public void render() {
 //        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 //        stillObjects.forEach(g -> g.render(gc));
 //        entities.forEach(g -> g.render(gc));
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
+        //stillObjects.forEach(g -> g.render(gc));
         grasses.forEach(grass -> grass.render(gc));
         walls.forEach(wall -> wall.render(gc));
         portals.forEach(portal -> portal.render(gc));
