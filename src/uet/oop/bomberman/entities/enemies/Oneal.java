@@ -18,7 +18,7 @@ public class Oneal extends Enemy{
     @Override
     protected void handleDirection() {
         if (d.getY() == 0 && d.getX() == 0) {
-            //findBomber();
+            findBomber();
         }
         if (d.getX() == 0 && ya == 0) {
             if (xa < 0) {
@@ -89,66 +89,66 @@ public class Oneal extends Enemy{
         return super.canMoveToDirection(x, y);
     }
 
-//    private void findBomber() {
-//        if (BombermanGame.getBomber() == null) {
-//            return;
-//        }
-//        int xtemp = 0, ytemp = 0;
-//        int low, high;
-//        speed = 1;
-//        if (tile.getX() == BombermanGame.getBomber().getTile().getX()) {
-//            xtemp = 0;
-//            if (tile.getY() < BombermanGame.getBomber().getTile().getY()) {
-//                ytemp = speed;
-//                low = tile.getY();
-//                high = BombermanGame.getBomber().getTile().getY();
-//            } else if (tile.getY() > BombermanGame.getBomber().getTile().getY()) {
-//                ytemp = -speed;
-//                low = BombermanGame.getBomber().getTile().getY();
-//                high = tile.getY();
-//            } else {
-//                xa = xtemp;
-//                ya = ytemp;
-//                return;
-//            }
-//            for (int i = low + 1; i < high; i++) {
-//                if (BombermanGame.getEntityAt(tile.getX(), i) instanceof Wall
-//                        || BombermanGame.getEntityAt(tile.getX(), i) instanceof Brick
-//                        || BombermanGame.getEntityAt(tile.getX(), i) instanceof Bomb) {
-//                    return;
-//                }
-//            }
-//            xa = xtemp;
-//            ya = ytemp;
-//            return;
-//        } else if (tile.getY() == BombermanGame.getBomber().getTile().getY()) {
-//            ytemp = 0;
-//            if (tile.getX() < BombermanGame.getBomber().getTile().getX()) {
-//                xtemp = speed;
-//                low = tile.getX();
-//                high = BombermanGame.getBomber().getTile().getX();
-//            } else if (tile.getX() > BombermanGame.getBomber().getTile().getX()) {
-//                xtemp = -speed;
-//                low = BombermanGame.getBomber().getTile().getX();
-//                high = tile.getX();
-//            } else {
-//                ya = ytemp;
-//                xa = xtemp;
-//                return;
-//            }
-//
-//            for (int i = low + 1; i < high; i++) {
-//                if (BombermanGame.getEntityAt(i, tile.getY()) instanceof Wall
-//                        || BombermanGame.getEntityAt(i, tile.getY()) instanceof Brick
-//                        || BombermanGame.getEntityAt(i, tile.getY()) instanceof Bomb) {
-//                    return;
-//                }
-//            }
-//            xa = xtemp;
-//            ya = ytemp;
-//        }
-//        speed = 1;
-//    }
+    private void findBomber() {
+        if (BombermanGame.getBomber() == null) {
+            return;
+        }
+        int xtemp = 0, ytemp = 0;
+        int low, high;
+        speed = 1;
+        if (tile.getX() == BombermanGame.getBomber().getTile().getX()) {
+            xtemp = 0;
+            if (tile.getY() < BombermanGame.getBomber().getTile().getY()) {
+                ytemp = speed;
+                low = tile.getY();
+                high = BombermanGame.getBomber().getTile().getY();
+            } else if (tile.getY() > BombermanGame.getBomber().getTile().getY()) {
+                ytemp = -speed;
+                low = BombermanGame.getBomber().getTile().getY();
+                high = tile.getY();
+            } else {
+                xa = xtemp;
+                ya = ytemp;
+                return;
+            }
+            for (int i = low + 1; i < high; i++) {
+                if (BombermanGame.getEntityAt(tile.getX(), i) instanceof Wall
+                        || BombermanGame.getEntityAt(tile.getX(), i) instanceof Brick
+                        || BombermanGame.getEntityAt(tile.getX(), i) instanceof Bomb) {
+                    return;
+                }
+            }
+            xa = xtemp;
+            ya = ytemp;
+            return;
+        } else if (tile.getY() == BombermanGame.getBomber().getTile().getY()) {
+            ytemp = 0;
+            if (tile.getX() < BombermanGame.getBomber().getTile().getX()) {
+                xtemp = speed;
+                low = tile.getX();
+                high = BombermanGame.getBomber().getTile().getX();
+            } else if (tile.getX() > BombermanGame.getBomber().getTile().getX()) {
+                xtemp = -speed;
+                low = BombermanGame.getBomber().getTile().getX();
+                high = tile.getX();
+            } else {
+                ya = ytemp;
+                xa = xtemp;
+                return;
+            }
+
+            for (int i = low + 1; i < high; i++) {
+                if (BombermanGame.getEntityAt(i, tile.getY()) instanceof Wall
+                        || BombermanGame.getEntityAt(i, tile.getY()) instanceof Brick
+                        || BombermanGame.getEntityAt(i, tile.getY()) instanceof Bomb) {
+                    return;
+                }
+            }
+            xa = xtemp;
+            ya = ytemp;
+        }
+        speed = 1;
+    }
 
     @Override
     protected void afterDie() {
