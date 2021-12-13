@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.AnimatedEntity;
+import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Enemy;
@@ -21,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class BombermanGame extends Application {
+    public static Stage stage = new Stage();
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
@@ -28,6 +30,7 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
+    private static Bomber bomber;
     private List<Entity> entities = new ArrayList<>();
     private static List<Entity> stillObjects = new ArrayList<>();
     private static List<Flame> flames = new ArrayList<>();
@@ -39,6 +42,7 @@ public class BombermanGame extends Application {
     private static List<Entity> enemies = new ArrayList<>();
     private static List<Grass> grasses = new ArrayList<>();
     private static List<Enemy> dead = new ArrayList<>();
+    public static Keyboard input = new Keyboard();
 
 
     public static void main(String[] args) {
@@ -88,11 +92,11 @@ public class BombermanGame extends Application {
         if (entity != null) {
             return entity;
         }
-//        if (bomber != null
-//                && bomber.getTile().getX() == x
-//                && bomber.getTile().getY() == y) {
-//            entity = bomber;
-//        }
+        if (bomber != null
+                && bomber.getTile().getX() == x
+                && bomber.getTile().getY() == y) {
+            entity = bomber;
+        }
         return entity;
     }
 
@@ -117,8 +121,27 @@ public class BombermanGame extends Application {
         return entity;
     }
 
+    public static Bomber getBomber() {
+        return bomber;
+    }
+
+    public static void setBomber(Bomber bomber) {
+        BombermanGame.bomber = bomber;
+    }
+
+    public static void setBomb(Bomb bomb) {
+        BombermanGame.bombs.add(bomb);
+    }
+
+    public static void removeBomber() {
+        bombs.remove(0);
+        if (bomber != null) {
+            bomber.addBomb();
+        }
+    }
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage1) throws IOException {
+        stage = stage1;
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -129,6 +152,10 @@ public class BombermanGame extends Application {
 
         // Tao scene
         Scene scene = new Scene(root);
+
+        scene.setOnKeyPressed(event -> input.keyPressed(event));
+
+        scene.setOnKeyReleased(event -> input.keyRelease(event));
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -187,9 +214,9 @@ public class BombermanGame extends Application {
             enemy.update();
         }
 
-//        if (bomber != null) {
-//            bomber.update();
-//        }
+        if (bomber != null) {
+            bomber.update();
+        }
     }
 
     public static void removeFlame() {
@@ -220,12 +247,14 @@ public class BombermanGame extends Application {
         bricks.forEach(brick -> brick.render(gc));
         //enemies.forEach(enemy -> enemy.render(gc));
         bombs.forEach(g -> g.render(gc));
-//        dead.forEach(dead->dead.render(gc));
-//        if (bomber != null) {
-//            bomber.render(gc);
-//        }
+        dead.forEach(dead->dead.render(gc));
+        if (bomber != null) {
+            bomber.render(gc);
+        }
         enemies.forEach(enemy -> enemy.render(gc));
     }
+
+
 
     public static void setGrass(Grass grass) {
         BombermanGame.grasses.add(grass);

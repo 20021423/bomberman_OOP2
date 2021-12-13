@@ -1,5 +1,6 @@
 package uet.oop.bomberman;
 
+import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.staticEntities.Brick;
@@ -53,9 +54,9 @@ public class Map {
 //                        BombermanGame.setPortal(new Portal(new Coordinates(j, i)));
 //                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
 //                        break;
-//                    case 'p':
-//                        BombermanGame.setBomber(new Bomber(new Coordinates(j, i), BombermanGame.input));
-//                        break;
+                    case 'p':
+                        BombermanGame.setBomber(new Bomber(new Coordinates(j, i), BombermanGame.input));
+                        break;
 //                    case 'f':
 //                        BombermanGame.setItem(new FlamesItem(new Coordinates(j, i)));
 //                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
