@@ -5,14 +5,10 @@ import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.staticEntities.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Map {
     public static Map instance = null;
-    public String LEVEL_TEMPLATE = "/levels/Level%d.txt";
 
     private int level;
     private int rows;
@@ -30,10 +26,11 @@ public class Map {
     }
 
     public void loadMap(int level) throws IOException {
-        InputStream is = this.getClass().getResourceAsStream(String.format(LEVEL_TEMPLATE, level));
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+//        InputStream is = this.getClass().getResourceAsStream("/levels/Level"+ level + ".txt");
+        FileReader fr = new FileReader(new File("res/levels/Level" + level + ".txt"));
+        BufferedReader br = new BufferedReader(fr);
         String[] line = br.readLine().split("\\s+");
-        this.level = Integer.parseInt(line[0]);
+        level = Integer.parseInt(line[0]);
         rows = Integer.parseInt(line[1]);
         cols = Integer.parseInt(line[2]);
         for (int i = 0; i < rows; i++) {
@@ -48,10 +45,10 @@ public class Map {
                     case '*':
                         BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
                         break;
-//                    case 'x':
-//                        BombermanGame.setPortal(new Portal(new Coordinates(j, i)));
-//                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
-//                        break;
+                    case 'x':
+                        BombermanGame.setPortal(new Portal(new Coordinates(j, i)));
+                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
+                        break;
                     case 'p':
                         BombermanGame.setBomber(new Bomber(new Coordinates(j, i), BombermanGame.input));
                         break;
@@ -91,7 +88,7 @@ public class Map {
             }
         }
         br.close();
-        is.close();
+        fr.close();
     }
 
 

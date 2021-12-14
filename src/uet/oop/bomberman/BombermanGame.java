@@ -27,11 +27,12 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
     private static int _points = 0;
+    private static int level = 1;
 
     private GraphicsContext gc;
     private Canvas canvas;
     private static Bomber bomber;
-    private List<Entity> entities = new ArrayList<>();
+    private static List<Entity> entities = new ArrayList<>();
     //    private static List<Entity> stillObjects = new ArrayList<>();
     private static List<Flame> flames = new ArrayList<>();
     private static List<Entity> bombs = new ArrayList<>();
@@ -144,6 +145,10 @@ public class BombermanGame extends Application {
         BombermanGame.dead.add((Enemy) enemy);
     }
 
+    public static void setPortal(Portal portal) {
+        portals.add(portal);
+    }
+
     @Override
     public void start(Stage stage1) throws IOException {
         stage = stage1;
@@ -175,13 +180,13 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        createMap();
+        createMap(1);
 
 //       Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
 //        entities.add(bomberman);
     }
 
-    public void createMap() throws IOException {
+    public static void createMap(int level) throws IOException {
 //        for (int i = 0; i < WIDTH; i++) {
 //            for (int j = 0; j < HEIGHT; j++) {
 //                Entity object;
@@ -194,8 +199,21 @@ public class BombermanGame extends Application {
 //                stillObjects.add(object);
 //            }
 //        }
+        resetMap();
+        Map.getInstance().loadMap(level);
+    }
 
-        Map.getInstance().loadMap(1);
+    private static void resetMap() {
+        entities.clear();
+        flames.clear();
+        bombs.clear();
+        walls.clear();
+        portals.clear();
+        bricks.clear();
+        items.clear();
+        enemies.clear();
+        grasses.clear();
+        dead.clear();
     }
 
     public void update() {
