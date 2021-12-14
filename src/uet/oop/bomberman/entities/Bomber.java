@@ -3,10 +3,13 @@ package uet.oop.bomberman.entities;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
 import uet.oop.bomberman.entities.staticEntities.Item;
+import uet.oop.bomberman.entities.staticEntities.Portal;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
+
+import java.io.IOException;
 
 public class Bomber extends AnimatedEntity {
     public static int bomber_life = 3;
@@ -50,7 +53,7 @@ public class Bomber extends AnimatedEntity {
     }
 
     @Override
-    protected void handleCollision() {
+    protected void handleCollision(){
         Entity entity = BombermanGame.getEntityAt(tile.getX(), tile.getY());
         if (entity instanceof Enemy) {
             bomber_life--;
@@ -59,6 +62,13 @@ public class Bomber extends AnimatedEntity {
         if (entity instanceof Item) {
             ((Item) entity).getItem();
             //sound
+        }
+        if (entity instanceof Portal) {
+            try {
+                BombermanGame.createMap(2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

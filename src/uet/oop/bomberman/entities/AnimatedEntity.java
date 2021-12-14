@@ -8,6 +8,8 @@ import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.io.IOException;
+
 public abstract class AnimatedEntity extends Entity implements Animated {
     protected boolean _alive = true;
     protected boolean _moving = false;
@@ -114,7 +116,7 @@ public abstract class AnimatedEntity extends Entity implements Animated {
         this.d = d;
     }
 
-    protected abstract void handleCollision();
+    protected abstract void handleCollision() throws IOException;
 
     public boolean is_alive() {
         return _alive;
