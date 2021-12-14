@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
+import uet.oop.bomberman.entities.staticEntities.Item;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.Bomb;
@@ -54,6 +55,10 @@ public class Bomber extends AnimatedEntity {
         if (entity instanceof Enemy) {
             bomber_life--;
             die();
+        }
+        if (entity instanceof Item) {
+            ((Item) entity).getItem();
+            //sound
         }
     }
 

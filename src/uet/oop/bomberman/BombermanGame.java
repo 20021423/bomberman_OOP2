@@ -267,6 +267,14 @@ public class BombermanGame extends Application {
         BombermanGame.walls.add(wall);
     }
 
+    public static void setItem(Item item) {
+        BombermanGame.items.add(item);
+    }
+
+    public static void obtainItem(Item item) {
+        BombermanGame.items.remove(item);
+    }
+
     public static void setFlame(Flame flame) {
         flames.add(flame);
     }

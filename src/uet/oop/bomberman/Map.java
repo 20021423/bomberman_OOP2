@@ -3,9 +3,7 @@ package uet.oop.bomberman;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Oneal;
-import uet.oop.bomberman.entities.staticEntities.Brick;
-import uet.oop.bomberman.entities.staticEntities.Grass;
-import uet.oop.bomberman.entities.staticEntities.Wall;
+import uet.oop.bomberman.entities.staticEntities.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,21 +55,21 @@ public class Map {
                     case 'p':
                         BombermanGame.setBomber(new Bomber(new Coordinates(j, i), BombermanGame.input));
                         break;
-//                    case 'f':
-//                        BombermanGame.setItem(new FlamesItem(new Coordinates(j, i)));
-//                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
-//                        break;
-//                    case 's':
-//                        BombermanGame.setItem(new SpeedItem(new Coordinates(j, i)));
-//                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
-//                        break;
+                    case 'f':
+                        BombermanGame.setItem(new ItemFlame(new Coordinates(j, i)));
+                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
+                        break;
+                    case 's':
+                        BombermanGame.setItem(new ItemSpeed(new Coordinates(j, i)));
+                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
+                        break;
 //                    case 'k':
 //                        BombermanGame.setEnemy(new Boss1(new Coordinates(5, 5)));
 //                        break;
-//                    case 'b':
-//                        BombermanGame.setItem(new BombsItem(new Coordinates(j, i)));
-//                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
-//                        break;
+                    case 'b':
+                        BombermanGame.setItem(new ItemBomb(new Coordinates(j, i)));
+                        BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
+                        break;
                     case '1':
                         BombermanGame.setEnemy(new Balloon(new Coordinates(j, i)));
                         break;
