@@ -53,7 +53,7 @@ public class Bomber extends AnimatedEntity {
     }
 
     @Override
-    protected void handleCollision(){
+    protected void handleCollision() {
         Entity entity = BombermanGame.getEntityAt(tile.getX(), tile.getY());
         if (entity instanceof Enemy) {
             bomber_life--;
@@ -65,7 +65,9 @@ public class Bomber extends AnimatedEntity {
         }
         if (entity instanceof Portal) {
             try {
-                BombermanGame.createMap(2);
+                if (BombermanGame.getEnemies() == null) {
+                    BombermanGame.createMap(2);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

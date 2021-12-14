@@ -121,6 +121,9 @@ public class BombermanGame extends Application {
         }
         return entity;
     }
+    public static List<Entity> getEnemies() {
+        return enemies;
+    }
 
     public static Bomber getBomber() {
         return bomber;
