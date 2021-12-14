@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
+import uet.oop.bomberman.Map;
 import uet.oop.bomberman.entities.staticEntities.Item;
 import uet.oop.bomberman.entities.staticEntities.Portal;
 import uet.oop.bomberman.input.Keyboard;
@@ -65,7 +66,7 @@ public class Bomber extends AnimatedEntity {
         }
         if (entity instanceof Portal) {
             try {
-                if (BombermanGame.getEnemies() == null) {
+                if (Map.getTarget() == 0) {
                     BombermanGame.createMap(2);
                 }
             } catch (IOException e) {

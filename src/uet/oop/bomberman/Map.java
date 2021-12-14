@@ -13,6 +13,7 @@ public class Map {
     private int level;
     private int rows;
     private int cols;
+    private static int target;
 
     private Map() {
 
@@ -69,9 +70,11 @@ public class Map {
                         break;
                     case '1':
                         BombermanGame.setEnemy(new Balloon(new Coordinates(j, i)));
+                        target++;
                         break;
                     case '2':
                         BombermanGame.setEnemy(new Oneal(new Coordinates(j, i)));
+                        target++;
                         break;
 //                    case '3':
 //                        BombermanGame.setEnemy(new Ghost(new Coordinates(j,i)));
@@ -102,5 +105,13 @@ public class Map {
 
     public int getCols() {
         return cols;
+    }
+
+    public static int getTarget() {
+        return target;
+    }
+
+    public static void setTarget(int target) {
+        Map.target = target;
     }
 }
