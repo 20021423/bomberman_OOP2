@@ -20,15 +20,15 @@ public class Oneal extends Enemy{
         if (d.getY() == 0 && d.getX() == 0) {
             findBomber();
         }
-        if (d.getX() == 0 && ya == 0) {
-            if (xa < 0) {
+        if (d.getX() == 0) { // đi ngang
+            if (xa < 0) { // đi ngang trái bị chặn sẽ đi ngược lại sang ngang phải
                 if (canMoveToDirection(-1, 0)) {
                     d.setX(-Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(1, 0)) {
                     xa = speed;
                     d.setX(Sprite.SCALED_SIZE);
                 }
-            } else if (xa > 0) {
+            } else if (xa > 0) { // đi ngang phải bị chặn sẽ đi được lại sang ngang trái
                 if (canMoveToDirection(1, 0)) {
                     d.setX(Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(-1, 0)) {
@@ -37,7 +37,7 @@ public class Oneal extends Enemy{
                 }
             }
         }
-        if (d.getY() == 0 && xa == 0) {
+        if (d.getY() == 0 ) { // đi dọc
             if (ya < 0) {
                 if (canMoveToDirection(0, -1)) {
                     d.setY(-Sprite.SCALED_SIZE);
@@ -89,6 +89,10 @@ public class Oneal extends Enemy{
         return super.canMoveToDirection(x, y);
     }
 
+    /**
+     *  trường hợp di chuyển trên cùng 1 cột hoặc 1 hàng thì sẽ cập nhật cho quái tốc độ tương ứng
+     *    và kiểm tra từ quái đến bomber có chướng ngại không, nếu có thì sẽ dừng đuổi.
+     */
     private void findBomber() {
         if (BombermanGame.getBomber() == null) {
             return;
@@ -147,7 +151,7 @@ public class Oneal extends Enemy{
             xa = xtemp;
             ya = ytemp;
         }
-        speed = 1;
+        //speed = 1;
     }
 
     @Override

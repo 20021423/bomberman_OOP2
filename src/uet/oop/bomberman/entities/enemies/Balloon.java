@@ -3,6 +3,13 @@ package uet.oop.bomberman.entities.enemies;
 import uet.oop.bomberman.Coordinates;
 import uet.oop.bomberman.graphics.Sprite;
 
+/**
+ * con quái Balloon di chuyển ngang, dọc trên cỏ
+ * Khi đi ngang phía trái trên cỏ nếu gặp tường nó sẽ đi dọc lên, nếu đi dọc lên bị chặn thì đi dọc xuống
+ * Khi đi ngang phải trên cỏ nếu bị chặn thì nó sẽ đi xuống trước, nếu dọc xuống bị chặn thì nó đi lên trên
+ * Khi đi dọc hướng lên trên cỏ nếu bị chặn thì nó sẽ đi ngang phải trước, nếu bị chặn tiếp thì đi ngang trái
+ * Khi đi dọc hướng xuống trên cỏ nếu bị chặn thì nó sẽ đi ngang trái trước, nếu bị chặn tiếp thì đi ngang phải
+ */
 public class Balloon extends Enemy {
 
     public Balloon(Coordinates tile) {
@@ -25,22 +32,22 @@ public class Balloon extends Enemy {
                         ya = speed;
                     }
                 }
-            } else if (xa == speed) {
-                if (canMoveToDirection(1, 0)) {
+            } else if (xa == speed) {  //
+                if (canMoveToDirection(1, 0)) { // đi sang phải
                     d.setX(Sprite.SCALED_SIZE);
-                } else {
+                } else {  //
                     xa = 0;
-                    if (canMoveToDirection(0, 1)) {
+                    if (canMoveToDirection(0, 1)) { // va vào thực thể khác thì đi xuống dưới
                         ya = speed;
-                    } else {
+                    } else { // đi lên trên
                         ya = -speed;
                     }
                 }
             }
         }
-        if (d.getY() == 0) {
-            if (ya == -speed) {
-                if (canMoveToDirection(0, -1)) {
+        if (d.getY() == 0) { // trường hợp đi dọc trên cỏ
+            if (ya == -speed) { // đi lên trên
+                if (canMoveToDirection(0, -1)) { // đi lên trên được trên cỏ
                     d.setY(-Sprite.SCALED_SIZE);
                 } else {
                     ya = 0;
@@ -50,7 +57,7 @@ public class Balloon extends Enemy {
                         xa = -speed;
                     }
                 }
-            } else if (ya == speed) {
+            } else if (ya == speed) { // đi xuống dưới
                 if (canMoveToDirection(0, 1)) {
                     d.setY(Sprite.SCALED_SIZE);
                 } else {
@@ -85,12 +92,12 @@ public class Balloon extends Enemy {
     }
 
     @Override
-    protected void handleCollision() {
-
+    protected void afterDie() {
+        img = Sprite.balloom_dead.getFxImage();
     }
 
     @Override
-    protected void afterDie() {
-        img = Sprite.balloom_dead.getFxImage();
+    protected void handleCollision() {
+
     }
 }

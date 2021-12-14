@@ -14,8 +14,11 @@ public abstract class Enemy extends AnimatedEntity {
     }
 
     public void animate() {
-        if (_animate > 1200) _animate = 0;
-        else _animate++;
+        if (_animate > 1200) {
+            _animate = 0;
+        } else {
+            _animate++;
+        }
     }
 
     @Override
