@@ -7,7 +7,10 @@ import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Oneal extends Enemy{
+/**
+ * gặp tường thì di chuyển hướng ngược lại và biết đuổi theo bomber.
+ */
+public class Oneal extends Enemy {
 
     public Oneal(Coordinates tile) {
         super(tile, 300);
@@ -20,7 +23,7 @@ public class Oneal extends Enemy{
         if (d.getY() == 0 && d.getX() == 0) {
             findBomber();
         }
-        if (d.getX() == 0) { // đi ngang
+        if (d.getX() == 0 && ya == 0) { // đi ngang
             if (xa < 0) { // đi ngang trái bị chặn sẽ đi ngược lại sang ngang phải
                 if (canMoveToDirection(-1, 0)) {
                     d.setX(-Sprite.SCALED_SIZE);
@@ -37,7 +40,7 @@ public class Oneal extends Enemy{
                 }
             }
         }
-        if (d.getY() == 0 ) { // đi dọc
+        if (d.getY() == 0 && xa == 0) { // đi dọc
             if (ya < 0) {
                 if (canMoveToDirection(0, -1)) {
                     d.setY(-Sprite.SCALED_SIZE);
@@ -90,8 +93,8 @@ public class Oneal extends Enemy{
     }
 
     /**
-     *  trường hợp di chuyển trên cùng 1 cột hoặc 1 hàng thì sẽ cập nhật cho quái tốc độ tương ứng
-     *    và kiểm tra từ quái đến bomber có chướng ngại không, nếu có thì sẽ dừng đuổi.
+     * trường hợp di chuyển trên cùng 1 cột hoặc 1 hàng thì sẽ cập nhật cho quái tốc độ tương ứng
+     * và kiểm tra từ quái đến bomber có chướng ngại không, nếu có thì sẽ dừng đuổi.
      */
     private void findBomber() {
         if (BombermanGame.getBomber() == null) {
@@ -111,8 +114,8 @@ public class Oneal extends Enemy{
                 low = BombermanGame.getBomber().getTile().getY();
                 high = tile.getY();
             } else {
-                xa = xtemp;
-                ya = ytemp;
+//                xa = xtemp;
+//                ya = ytemp;
                 return;
             }
             for (int i = low + 1; i < high; i++) {
