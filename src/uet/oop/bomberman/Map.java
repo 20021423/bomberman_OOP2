@@ -17,7 +17,7 @@ public class Map {
     private static int rows;
     private static int cols;
     private static int target;
-    
+
     public static void loadMap(int level) throws IOException {
         FileReader fr = new FileReader(new File("res/levels/Level" + level + ".txt"));
         BufferedReader br = new BufferedReader(fr);
