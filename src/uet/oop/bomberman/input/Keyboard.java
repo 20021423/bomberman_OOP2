@@ -32,9 +32,6 @@ public class Keyboard {
         if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
             right = true;
         }
-        if (event.getCode() == KeyCode.P) {
-            pause = true;
-        }
     }
 
     public void keyRelease(KeyEvent event) {
@@ -52,10 +49,6 @@ public class Keyboard {
         }
         if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
             right = false;
-        }
-
-        if (event.getCode() == KeyCode.P) {
-            pause = false;
         }
     }
 }
