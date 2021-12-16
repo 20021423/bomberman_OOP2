@@ -36,6 +36,9 @@ public class Bomber extends AnimatedEntity {
                 BombermanGame.removeBomber();
                 if (bomberLife > 0) {
                     BombermanGame.setBomber(new Bomber(new Coordinates(1, 1), BombermanGame.input));
+                    Bomb.setFlameRadius(1);
+                    bombCount = 1;
+                    BombermanGame.getBomber().setSpeed(1);
                     alive = true;
                 }
             }
