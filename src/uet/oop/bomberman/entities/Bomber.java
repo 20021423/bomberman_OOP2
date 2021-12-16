@@ -88,6 +88,7 @@ public class Bomber extends AnimatedEntity {
             BombermanGame.setBomb(new Bomb(new Coordinates(tile.getX(), tile.getY())));
             bomb--;
             distance = 10;
+            GameSound.playMusic(GameSound.BOMB);
         }
     }
 
