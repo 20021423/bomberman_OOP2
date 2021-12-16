@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.enemies.Balloon;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -121,6 +120,7 @@ public class BombermanGame extends Application {
         }
         return entity;
     }
+
     public static List<Entity> getEnemies() {
         return enemies;
     }
@@ -133,15 +133,12 @@ public class BombermanGame extends Application {
         BombermanGame.bomber = bomber;
     }
 
-    public static void setBomb(Bomb bomb) {
-        BombermanGame.bombs.add(bomb);
+    public static void removeBomber() {
+        bomber = null;
     }
 
-    public static void removeBomber() {
-        bombs.remove(0);
-        if (bomber != null) {
-            bomber.addBomb();
-        }
+    public static void setBomb(Bomb bomb) {
+        BombermanGame.bombs.add(bomb);
     }
 
     public static void setDead(Enemy enemy) {
