@@ -28,14 +28,11 @@ public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-    private static int _points = 0;
-    private static int level = 1;
 
     private GraphicsContext gc;
     private Canvas canvas;
     private static Bomber bomber;
     private static List<Entity> entities = new ArrayList<>();
-    //    private static List<Entity> stillObjects = new ArrayList<>();
     private static List<Flame> flames = new ArrayList<>();
     private static List<Entity> bombs = new ArrayList<>();
     private static List<Entity> walls = new ArrayList<>();
@@ -46,7 +43,7 @@ public class BombermanGame extends Application {
     private static List<Grass> grasses = new ArrayList<>();
     private static List<Enemy> dead = new ArrayList<>();
     public static Keyboard input = new Keyboard();
-    public static Clip THREAD_SOUNDTRACK = loopMusic(GameSound.PLAYGAME);
+    public static Clip THREAD_SOUNDTRACK = loopMusic(GameSound.inGameSound);
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -56,9 +53,6 @@ public class BombermanGame extends Application {
         enemies.remove(enemy);
     }
 
-    public static void addPoints(int points) {
-        _points += points;
-    }
 
     public static void removeDead(Enemy enemy) {
         BombermanGame.dead.remove(enemy);
@@ -112,20 +106,8 @@ public class BombermanGame extends Application {
             if (cur.getTile().getY() == y && cur.getTile().getX() == x) {
                 entity = cur;
             }
-//            if (cur instanceof Boss) {
-//                Boss boss = (Boss) cur;
-//                for (Coordinates tile : boss.getTiles()) {
-//                    if (tile.getX() == x && tile.getY() == y) {
-//                        entity = boss;
-//                    }
-//                }
-//            }
         }
         return entity;
-    }
-
-    public static List<Entity> getEnemies() {
-        return enemies;
     }
 
     public static Bomber getBomber() {
@@ -145,7 +127,7 @@ public class BombermanGame extends Application {
     }
 
     public static void setDead(Enemy enemy) {
-        BombermanGame.dead.add((Enemy) enemy);
+        BombermanGame.dead.add(enemy);
     }
 
     public static void setPortal(Portal portal) {
@@ -173,7 +155,6 @@ public class BombermanGame extends Application {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-        initPLayThread();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -185,44 +166,9 @@ public class BombermanGame extends Application {
 
         createMap(1);
         BombermanGame.THREAD_SOUNDTRACK.loop(Clip.LOOP_CONTINUOUSLY);
-//       Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-//        entities.add(bomberman);
     }
-    public void initPLayThread() {
-        AnimationTimer playThread = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                update();
-            }
-
-            @Override
-            public void start() {
-                THREAD_SOUNDTRACK.loop(Clip.LOOP_CONTINUOUSLY);
-                super.start();
-            }
-
-            @Override
-            public void stop() {
-                THREAD_SOUNDTRACK.stop();
-                super.stop();
-            }
-        };
-    }
-
 
     public static void createMap(int level) throws IOException {
-//        for (int i = 0; i < WIDTH; i++) {
-//            for (int j = 0; j < HEIGHT; j++) {
-//                Entity object;
-//                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-//                    object = new Wall(i, j, Sprite.wall.getFxImage());
-//                }
-//                else {
-//                    object = new Grass(i, j, Sprite.grass.getFxImage());
-//                }
-//                stillObjects.add(object);
-//            }
-//        }
         resetMap();
         Map.getInstance().loadMap(level);
     }
@@ -276,25 +222,16 @@ public class BombermanGame extends Application {
         bricks.remove(brick);
     }
 
-//    public static void setStillObjects(Entity entity) {
-//        stillObjects.add(entity);
-//    }
-
     public void render() {
-//        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        stillObjects.forEach(g -> g.render(gc));
-//        entities.forEach(g -> g.render(gc));
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        //stillObjects.forEach(g -> g.render(gc));
         grasses.forEach(grass -> grass.render(gc));
         walls.forEach(wall -> wall.render(gc));
         portals.forEach(portal -> portal.render(gc));
         items.forEach(item -> item.render(gc));
         for (Flame flame : flames) {
-            flame.get_flameSegments().forEach(flameSegment -> flameSegment.render(gc));
+            flame.getFlameSegments().forEach(flameSegment -> flameSegment.render(gc));
         }
         bricks.forEach(brick -> brick.render(gc));
-        //enemies.forEach(enemy -> enemy.render(gc));
         bombs.forEach(g -> g.render(gc));
         dead.forEach(dead -> dead.render(gc));
         if (bomber != null) {

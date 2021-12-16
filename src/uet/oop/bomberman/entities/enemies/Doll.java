@@ -17,47 +17,47 @@ public class Doll extends Enemy {
     int direc = 0;
 
     public Doll(Coordinates tile) {
-        super(tile, 200);
+        super(tile);
         img = Sprite.doll_left1.getFxImage();
-        xa = speed;
+        distanceX = speed;
     }
 
     @Override
     protected void handleDirection() {
-        if (d.getX() == 0) {
-            if (Math.abs(xa) == speed) {
-                int xt = xa / Math.abs(xa);
+        if (direct.getX() == 0) {
+            if (Math.abs(distanceX) == speed) {
+                int xt = distanceX / Math.abs(distanceX);
                 if (canMoveToDirection(xt, 0)) {
-                    d.setX(xt * Sprite.SCALED_SIZE);
+                    direct.setX(xt * Sprite.SCALED_SIZE);
                 } else {
-                    xa = 0;
+                    distanceX = 0;
                     do {
                         direc = random.nextInt(3);
                         direc--;
                     } while (direc == 0);
                     if (canMoveToDirection(0, direc)) {
-                        ya = direc * speed;
+                        distanceY = direc * speed;
                     } else {
-                        ya = -direc * speed;
+                        distanceY = -direc * speed;
                     }
                 }
             }
         }
-        if (d.getY() == 0) {
-            if (Math.abs(ya) == speed) {
-                int yt = ya / Math.abs(ya);
+        if (direct.getY() == 0) {
+            if (Math.abs(distanceY) == speed) {
+                int yt = distanceY / Math.abs(distanceY);
                 if (canMoveToDirection(0, yt)) {
-                    d.setY(yt * Sprite.SCALED_SIZE);
+                    direct.setY(yt * Sprite.SCALED_SIZE);
                 } else {
-                    ya = 0;
+                    distanceY = 0;
                     do {
                         direc = random.nextInt(3);
                         direc--;
                     } while (direc == 0);
                     if (canMoveToDirection(direc, 0)) {
-                        xa = direc * speed;
+                        distanceX = direc * speed;
                     } else {
-                        xa = -direc * speed;
+                        distanceX = -direc * speed;
                     }
                 }
             }
@@ -68,17 +68,17 @@ public class Doll extends Enemy {
 
     @Override
     public void animate() {
-        if (_animate > 6000) {
-            _animate = 0;
+        if (animate > 6000) {
+            animate = 0;
         } else {
-            _animate++;
+            animate++;
         }
     }
 
     @Override
     public void update() {
         super.update();
-        if (!_alive) {
+        if (!alive) {
             return;
         }
         handleDirection();

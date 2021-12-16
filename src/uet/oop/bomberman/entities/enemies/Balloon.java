@@ -13,59 +13,59 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Balloon extends Enemy {
 
     public Balloon(Coordinates tile) {
-        super(tile, 100);
+        super(tile);
         img = Sprite.balloom_left1.getFxImage();
-        xa = -speed;
+        distanceX = -speed;
     }
 
     @Override
     protected void handleDirection() { // Coordinate d là tọa độ tile để xác định hướng
-        if (d.getX() == 0) {
-            if (xa == -speed) {
+        if (direct.getX() == 0) {
+            if (distanceX == -speed) {
                 if (canMoveToDirection(-1, 0)) { // đi trên cỏ về phía bên trái và cập nhật hoành độ mới
-                    d.setX(-Sprite.SCALED_SIZE);
+                    direct.setX(-Sprite.SCALED_SIZE);
                 } else { // trường hợp va vào thực thể khác thì sẽ đi dọc
-                    xa = 0;
+                    distanceX = 0;
                     if (canMoveToDirection(0, -1)) { // trường hợp đi lên trên
-                        ya = -speed;
+                        distanceY = -speed;
                     } else { // đi xuống dưới
-                        ya = speed;
+                        distanceY = speed;
                     }
                 }
-            } else if (xa == speed) {  //
+            } else if (distanceX == speed) {  //
                 if (canMoveToDirection(1, 0)) { // đi sang phải
-                    d.setX(Sprite.SCALED_SIZE);
+                    direct.setX(Sprite.SCALED_SIZE);
                 } else {  //
-                    xa = 0;
+                    distanceX = 0;
                     if (canMoveToDirection(0, 1)) { // va vào thực thể khác thì đi xuống dưới
-                        ya = speed;
+                        distanceY = speed;
                     } else { // đi lên trên
-                        ya = -speed;
+                        distanceY = -speed;
                     }
                 }
             }
         }
-        if (d.getY() == 0) { // trường hợp đi dọc trên cỏ
-            if (ya == -speed) { // đi lên trên
+        if (direct.getY() == 0) { // trường hợp đi dọc trên cỏ
+            if (distanceY == -speed) { // đi lên trên
                 if (canMoveToDirection(0, -1)) { // đi lên trên được trên cỏ
-                    d.setY(-Sprite.SCALED_SIZE);
+                    direct.setY(-Sprite.SCALED_SIZE);
                 } else {
-                    ya = 0;
+                    distanceY = 0;
                     if (canMoveToDirection(1, 0)) {
-                        xa = speed;
+                        distanceX = speed;
                     } else {
-                        xa = -speed;
+                        distanceX = -speed;
                     }
                 }
-            } else if (ya == speed) { // đi xuống dưới
+            } else if (distanceY == speed) { // đi xuống dưới
                 if (canMoveToDirection(0, 1)) {
-                    d.setY(Sprite.SCALED_SIZE);
+                    direct.setY(Sprite.SCALED_SIZE);
                 } else {
-                    ya = 0;
+                    distanceY = 0;
                     if (canMoveToDirection(-1, 0)) {
-                        xa = -speed;
+                        distanceX = -speed;
                     } else {
-                        xa = speed;
+                        distanceX = speed;
                     }
                 }
             }
@@ -77,7 +77,7 @@ public class Balloon extends Enemy {
     @Override
     public void update() {
         super.update();
-        if (!_alive) {
+        if (!alive) {
             return;
         }
 
@@ -98,6 +98,5 @@ public class Balloon extends Enemy {
 
     @Override
     protected void handleCollision() {
-
     }
 }

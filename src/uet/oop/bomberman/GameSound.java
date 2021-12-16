@@ -8,18 +8,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class GameSound {
-    protected static AudioPlayer player = AudioPlayer.player;
-    private static boolean stop_music = false;
 
-    public static final String MENU = "menu.wav";
-    public static final String PLAYGAME = "playgame.wav";
-    public static final String BOMB = "newbomb.wav";
-    public static final String BOMBER_DIE = "bomber_die.wav";
-    public static final String ENEMY_DIE = "enemy_die.wav";
-    public static final String BONG_BANG = "bomb_bang.wav";
+    public static final String inGameSound = "playgame.wav";
+    public static final String BOOM = "newbomb.wav";
+    public static final String DEATH1 = "bomber_die.wav";
+    public static final String DEATH2 = "enemy_die.wav";
+    public static final String BANG = "bomb_bang.wav";
     public static final String ITEM = "item.wav";
     public static final String WIN = "win.wav";
-    public static final String LOSE = "lose.wav";
 
     public static String SOUND_TEMPLATE = "/sound/%s";
 

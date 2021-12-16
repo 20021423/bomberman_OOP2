@@ -7,45 +7,42 @@ import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Enemy extends AnimatedEntity {
-    protected int _points;
 
-    public Enemy(Coordinates tile, int points) {
+    public Enemy(Coordinates tile) {
         super(tile);
-        this._points = points;
     }
 
     public void animate() {
-        if (_animate > 1200) {
-            _animate = 0;
+        if (animate > 1200) {
+            animate = 0;
         } else {
-            _animate++;
+            animate++;
         }
     }
 
     @Override
     public void update() {
         animate();
-        if (!_alive) {
+        if (!alive) {
             BombermanGame.removeEnemy(this);
             afterDie();
 
-            if (_animate == 60) {
-                BombermanGame.addPoints(_points);
+            if (animate == 60) {
                 BombermanGame.removeDead(this);
-                GameSound.playMusic(GameSound.ENEMY_DIE);
+                GameSound.playMusic(GameSound.DEATH2);
             }
         }
 
     }
 
     protected void handleMove() {
-        if (d.getX() != 0 || d.getY() != 0) {
-            move(xa * Sprite.PLAYER_SPEED, ya * Sprite.PLAYER_SPEED);
-            d.setX((int) (d.getX() - xa * Sprite.PLAYER_SPEED));
-            d.setY((int) (d.getY() - ya * Sprite.PLAYER_SPEED));
-            _moving = true;
+        if (direct.getX() != 0 || direct.getY() != 0) {
+            move(distanceX * Sprite.PLAYER_SPEED, distanceY * Sprite.PLAYER_SPEED);
+            direct.setX((int) (direct.getX() - distanceX * Sprite.PLAYER_SPEED));
+            direct.setY((int) (direct.getY() - distanceY * Sprite.PLAYER_SPEED));
+            moving = true;
         } else {
-            _moving = false;
+            moving = false;
         }
     }
 

@@ -13,47 +13,47 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Oneal extends Enemy {
 
     public Oneal(Coordinates tile) {
-        super(tile, 300);
+        super(tile);
         img = Sprite.oneal_left1.getFxImage();
-        xa = -speed;
+        distanceX = -speed;
     }
 
     @Override
     protected void handleDirection() {
-        if (d.getY() == 0 && d.getX() == 0) {
+        if (direct.getY() == 0 && direct.getX() == 0) {
             findBomber();
         }
-        if (d.getX() == 0 && ya == 0) { // đi ngang
-            if (xa < 0) { // đi ngang trái bị chặn sẽ đi ngược lại sang ngang phải
+        if (direct.getX() == 0 && distanceY == 0) { // đi ngang
+            if (distanceX < 0) { // đi ngang trái bị chặn sẽ đi ngược lại sang ngang phải
                 if (canMoveToDirection(-1, 0)) {
-                    d.setX(-Sprite.SCALED_SIZE);
+                    direct.setX(-Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(1, 0)) {
-                    xa = speed;
-                    d.setX(Sprite.SCALED_SIZE);
+                    distanceX = speed;
+                    direct.setX(Sprite.SCALED_SIZE);
                 }
-            } else if (xa > 0) { // đi ngang phải bị chặn sẽ đi được lại sang ngang trái
+            } else if (distanceX > 0) { // đi ngang phải bị chặn sẽ đi được lại sang ngang trái
                 if (canMoveToDirection(1, 0)) {
-                    d.setX(Sprite.SCALED_SIZE);
+                    direct.setX(Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(-1, 0)) {
-                    xa = -speed;
-                    d.setX(-Sprite.SCALED_SIZE);
+                    distanceX = -speed;
+                    direct.setX(-Sprite.SCALED_SIZE);
                 }
             }
         }
-        if (d.getY() == 0 && xa == 0) { // đi dọc
-            if (ya < 0) {
+        if (direct.getY() == 0 && distanceX == 0) { // đi dọc
+            if (distanceY < 0) {
                 if (canMoveToDirection(0, -1)) {
-                    d.setY(-Sprite.SCALED_SIZE);
+                    direct.setY(-Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(0, 1)) {
-                    ya = speed;
-                    d.setY(Sprite.SCALED_SIZE);
+                    distanceY = speed;
+                    direct.setY(Sprite.SCALED_SIZE);
                 }
-            } else if (ya > 0) {
+            } else if (distanceY > 0) {
                 if (canMoveToDirection(0, 1)) {
-                    d.setY(Sprite.SCALED_SIZE);
+                    direct.setY(Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(0, -1)) {
-                    ya = -speed;
-                    d.setY(-Sprite.SCALED_SIZE);
+                    distanceY = -speed;
+                    direct.setY(-Sprite.SCALED_SIZE);
                 }
             }
         }
@@ -63,7 +63,7 @@ public class Oneal extends Enemy {
     @Override
     public void update() {
         super.update();
-        if (!_alive) {
+        if (!alive) {
             return;
         }
         handleDirection();
@@ -114,8 +114,6 @@ public class Oneal extends Enemy {
                 low = BombermanGame.getBomber().getTile().getY();
                 high = tile.getY();
             } else {
-//                xa = xtemp;
-//                ya = ytemp;
                 return;
             }
             for (int i = low + 1; i < high; i++) {
@@ -125,8 +123,8 @@ public class Oneal extends Enemy {
                     return;
                 }
             }
-            xa = xtemp;
-            ya = ytemp;
+            distanceX = xtemp;
+            distanceY = ytemp;
             return;
         } else if (tile.getY() == BombermanGame.getBomber().getTile().getY()) {
             ytemp = 0;
@@ -139,8 +137,8 @@ public class Oneal extends Enemy {
                 low = BombermanGame.getBomber().getTile().getX();
                 high = tile.getX();
             } else {
-                ya = ytemp;
-                xa = xtemp;
+                distanceY = ytemp;
+                distanceX = xtemp;
                 return;
             }
 
@@ -151,10 +149,9 @@ public class Oneal extends Enemy {
                     return;
                 }
             }
-            xa = xtemp;
-            ya = ytemp;
+            distanceX = xtemp;
+            distanceY = ytemp;
         }
-        //speed = 1;
     }
 
     @Override

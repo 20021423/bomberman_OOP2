@@ -2,26 +2,25 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
-import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Entity {
+
     protected Coordinates pixel;
-
     protected Coordinates tile;
-
-    protected Image img;
-
-    public DIRECTION _direction = DIRECTION.NONE;
-
-    public enum DIRECTION {
-        NONE, UP, RIGHT, DOWN, LEFT, CENTER
-    }
 
     public Entity(Coordinates tile) {
         this.tile = tile;
         pixel = tile.convertTileToPixel();
+    }
+
+    protected Image img;
+
+    public DIRECTION direction = DIRECTION.NONE;
+
+
+    public enum DIRECTION {
+        NONE, UP, RIGHT, DOWN, LEFT, CENTER
     }
 
     public void render(GraphicsContext gc) {

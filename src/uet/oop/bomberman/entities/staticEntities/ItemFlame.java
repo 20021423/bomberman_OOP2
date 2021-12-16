@@ -13,7 +13,7 @@ public class ItemFlame extends Item{
 
     @Override
     public void getItem() {
-        Bomb.setDamage(Bomb.getDamage() + 1);
+        Bomb.setFlameRadius(Bomb.getFlameRadius() + 1);
         BombermanGame.obtainItem(this);
     }
 }

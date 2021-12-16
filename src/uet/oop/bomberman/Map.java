@@ -7,7 +7,10 @@ import uet.oop.bomberman.entities.enemies.Kondoria;
 import uet.oop.bomberman.entities.enemies.Oneal;
 import uet.oop.bomberman.entities.staticEntities.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Map {
     public static Map instance = null;
@@ -18,7 +21,6 @@ public class Map {
     private static int target;
 
     private Map() {
-
     }
 
     public static Map getInstance() {
@@ -29,7 +31,6 @@ public class Map {
     }
 
     public void loadMap(int level) throws IOException {
-//        InputStream is = this.getClass().getResourceAsStream("/levels/Level"+ level + ".txt");
         FileReader fr = new FileReader(new File("res/levels/Level" + level + ".txt"));
         BufferedReader br = new BufferedReader(fr);
         String[] line = br.readLine().split("\\s+");
@@ -38,7 +39,6 @@ public class Map {
         cols = Integer.parseInt(line[2]);
         for (int i = 0; i < rows; i++) {
             String map = br.readLine();
-            //System.out.println(map);
             for (int j = 0; j < cols; j++) {
                 BombermanGame.setGrass(new Grass(new Coordinates(j, i)));
                 switch (map.charAt(j)) {
@@ -63,9 +63,6 @@ public class Map {
                         BombermanGame.setItem(new ItemSpeed(new Coordinates(j, i)));
                         BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
                         break;
-//                    case 'k':
-//                        BombermanGame.setEnemy(new Boss1(new Coordinates(5, 5)));
-//                        break;
                     case 'b':
                         BombermanGame.setItem(new ItemBomb(new Coordinates(j, i)));
                         BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
@@ -82,11 +79,8 @@ public class Map {
                         BombermanGame.setEnemy(new Doll(new Coordinates(j, i)));
                         target++;
                         break;
-//                    case '4':
-//                        BombermanGame.setEnemy(new Minvo(new Coordinates(j,i)));
-//                        break;
                     case '5':
-                        BombermanGame.setEnemy(new Kondoria(new Coordinates(j,i)));
+                        BombermanGame.setEnemy(new Kondoria(new Coordinates(j, i)));
                         target++;
                         break;
                     default:
@@ -101,14 +95,6 @@ public class Map {
 
     public static int getLevel() {
         return level;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCols() {
-        return cols;
     }
 
     public static int getTarget() {

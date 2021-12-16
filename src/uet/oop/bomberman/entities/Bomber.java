@@ -4,49 +4,46 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
 import uet.oop.bomberman.GameSound;
 import uet.oop.bomberman.Map;
-import uet.oop.bomberman.entities.staticEntities.Item;
-import uet.oop.bomberman.entities.staticEntities.Portal;
-import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.entities.enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.Bomb;
+import uet.oop.bomberman.entities.staticEntities.Item;
+import uet.oop.bomberman.entities.staticEntities.Portal;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.input.Keyboard;
 
 import java.io.IOException;
 
 public class Bomber extends AnimatedEntity {
-    public static int bomber_life = 3;
-    protected Keyboard _input;
-    public static int time_exit_game = 60;
-    protected static int bomb = 1;
-    protected static int distance = 0;
+    public static int bomberLife = 3;
+    protected Keyboard key;
+    public static int quitGameTime = 50;
+    protected static int bombCount = 1;
+    protected static int delayTime = 0;
 
-    public Bomber(Coordinates tile, Keyboard _input) {
+    public Bomber(Coordinates tile, Keyboard key) {
         super(tile);
         this.img = Sprite.player_right.getFxImage();
         this.pixel.setX(this.pixel.getX() + 4);
-        this._input = _input;
+        this.key = key;
     }
 
     @Override
     public void update() {
         animate();
-        if (!_alive) {
+        if (!alive) {
             afterDie();
-            if (_animate == 60) {
+            if (animate == 60) {
                 BombermanGame.removeBomber();
-
-                if (bomber_life > 0) {
+                if (bomberLife > 0) {
                     BombermanGame.setBomber(new Bomber(new Coordinates(1, 1), BombermanGame.input));
-                    _alive = true;
+                    alive = true;
                 }
             }
             return;
         }
-
         putBomb();
         handleDirection();
         handleCollision();
-
         chooseSprite(Sprite.player_right,
                 Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2,
                 Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2,
@@ -58,9 +55,9 @@ public class Bomber extends AnimatedEntity {
     protected void handleCollision() {
         Entity entity = BombermanGame.getEntityAt(tile.getX(), tile.getY());
         if (entity instanceof Enemy) {
-            bomber_life--;
+            bomberLife--;
             die();
-            GameSound.playMusic(GameSound.BOMBER_DIE);
+            GameSound.playMusic(GameSound.DEATH1);
         }
         if (entity instanceof Item) {
             ((Item) entity).getItem();
@@ -69,8 +66,8 @@ public class Bomber extends AnimatedEntity {
         if (entity instanceof Portal) {
             try {
                 if (Map.getTarget() == 0) {
-                    Bomb.setDamage(1);
-                    bomb = 1;
+                    Bomb.setFlameRadius(1);
+                    bombCount = 1;
                     BombermanGame.getBomber().setSpeed(1);
                     BombermanGame.createMap(Map.getLevel() + 1);
                     GameSound.playMusic(GameSound.WIN);
@@ -83,22 +80,22 @@ public class Bomber extends AnimatedEntity {
 
 
     protected void putBomb() {
-        if (_input.space && distance < 0 && bomb > 0
+        if (key.space && delayTime < 0 && bombCount > 0
                 && !(BombermanGame.getEntityAt(tile.getX(), tile.getY()) instanceof Bomb)) {
             BombermanGame.setBomb(new Bomb(new Coordinates(tile.getX(), tile.getY())));
-            bomb--;
-            distance = 10;
-            GameSound.playMusic(GameSound.BOMB);
+            bombCount--;
+            delayTime = 10;
+            GameSound.playMusic(GameSound.BOOM);
         }
     }
 
     @Override
     public void animate() {
-        if (_animate > 120) _animate = 0;
-        else _animate++;
-        distance--;
-        if (bomber_life <= 0) {
-            time_exit_game--;
+        if (animate > 120) animate = 0;
+        else animate++;
+        delayTime--;
+        if (bomberLife <= 0) {
+            quitGameTime--;
         }
     }
 
@@ -106,34 +103,34 @@ public class Bomber extends AnimatedEntity {
     @Override
     protected void handleDirection() {
         double xa = 0, ya = 0;
-        if ((_input.up && d.getX() == 0 && canMoveToDirection(0, -1)) || d.getY() < 0) {
+        if ((key.up && direct.getX() == 0 && canMoveToDirection(0, -1)) || direct.getY() < 0) {
             ya = -speed;
-            if (d.getY() >= 0) d.setY(d.getY() - Sprite.SCALED_SIZE);
+            if (direct.getY() >= 0) direct.setY(direct.getY() - Sprite.SCALED_SIZE);
         }
-        if ((_input.down && d.getX() == 0 && canMoveToDirection(0, 1)) || d.getY() > 0) {
+        if ((key.down && direct.getX() == 0 && canMoveToDirection(0, 1)) || direct.getY() > 0) {
             ya = speed;
-            if (d.getY() <= 0) d.setY(d.getY() + Sprite.SCALED_SIZE);
+            if (direct.getY() <= 0) direct.setY(direct.getY() + Sprite.SCALED_SIZE);
         }
-        if ((_input.left && d.getY() == 0 && canMoveToDirection(-1, 0)) || d.getX() < 0) {
+        if ((key.left && direct.getY() == 0 && canMoveToDirection(-1, 0)) || direct.getX() < 0) {
             xa = -speed;
-            if (d.getX() >= 0) d.setX(d.getX() - Sprite.SCALED_SIZE);
+            if (direct.getX() >= 0) direct.setX(direct.getX() - Sprite.SCALED_SIZE);
         }
-        if ((_input.right && d.getY() == 0 && canMoveToDirection(1, 0)) || d.getX() > 0) {
+        if ((key.right && direct.getY() == 0 && canMoveToDirection(1, 0)) || direct.getX() > 0) {
             xa = +speed;
-            if (d.getX() <= 0) d.setX(d.getX() + Sprite.SCALED_SIZE);
+            if (direct.getX() <= 0) direct.setX(direct.getX() + Sprite.SCALED_SIZE);
         }
 
-        if (d.getX() != 0 || d.getY() != 0) {
+        if (direct.getX() != 0 || direct.getY() != 0) {
             move(xa * Sprite.PLAYER_SPEED, ya * Sprite.PLAYER_SPEED);
-            d.setX((int) (d.getX() - xa * Sprite.PLAYER_SPEED));
-            d.setY((int) (d.getY() - ya * Sprite.PLAYER_SPEED));
-            _moving = true;
+            direct.setX((int) (direct.getX() - xa * Sprite.PLAYER_SPEED));
+            direct.setY((int) (direct.getY() - ya * Sprite.PLAYER_SPEED));
+            moving = true;
         } else {
-            if (_input.up) _direction = Entity.DIRECTION.UP;
-            if (_input.right) _direction = Entity.DIRECTION.RIGHT;
-            if (_input.down) _direction = Entity.DIRECTION.DOWN;
-            if (_input.left) _direction = Entity.DIRECTION.LEFT;
-            _moving = false;
+            if (key.up) direction = Entity.DIRECTION.UP;
+            if (key.right) direction = Entity.DIRECTION.RIGHT;
+            if (key.down) direction = Entity.DIRECTION.DOWN;
+            if (key.left) direction = Entity.DIRECTION.LEFT;
+            moving = false;
         }
 
     }
@@ -145,9 +142,8 @@ public class Bomber extends AnimatedEntity {
 
     @Override
     protected void afterDie() {
-        //loadAnimated(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3);
-        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3,_animate,20).getFxImage();
-        if (time_exit_game <= 0) {
+        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate, 20).getFxImage();
+        if (quitGameTime <= 0) {
             BombermanGame.stage.hide();
         }
     }
@@ -158,7 +154,7 @@ public class Bomber extends AnimatedEntity {
     }
 
     public void addBomb() {
-        bomb++;
+        bombCount++;
     }
 
     public int getSpeed() {

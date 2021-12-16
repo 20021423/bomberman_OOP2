@@ -9,20 +9,19 @@ import java.util.List;
 
 public class Flame extends StaticEntity {
     protected int time = 30;  // thời gian để nổ ra 4 phía
-    protected int frame = -1;
-    protected List<FlameSegment> _flameSegments;
-    protected int _radius;
+    protected List<FlameSegment> flameSegments;
+    protected int radius;
 
     public Flame(Coordinates tile, int radius) {
         super(tile);
-        _radius = radius;
+        this.radius = radius;
         createFlameSegments();
     }
 
     public void update() {
         time--;
         if (time > 0) {
-            _flameSegments.forEach(FlameSegment::update);
+            flameSegments.forEach(FlameSegment::update);
         } else {
              BombermanGame.removeFlame();
         }
@@ -31,8 +30,8 @@ public class Flame extends StaticEntity {
     public void createFlameSegments() {
         int x = tile.getX();
         int y = tile.getY();
-        _flameSegments = new ArrayList<>();
-        _flameSegments.add(new FlameSegment(new Coordinates(x, y), DIRECTION.CENTER, false));
+        flameSegments = new ArrayList<>();
+        flameSegments.add(new FlameSegment(new Coordinates(x, y), DIRECTION.CENTER, false));
         createSpark(DIRECTION.UP);
         createSpark(DIRECTION.RIGHT);
         createSpark(DIRECTION.DOWN);
@@ -42,7 +41,7 @@ public class Flame extends StaticEntity {
     public void createSpark(DIRECTION direction) {
         int x = tile.getX();
         int y = tile.getY();
-        int radius = _radius;
+        int radius = this.radius;
         int xt = x; // xt,yt là tọa độ từ x đến tọa độ đuôi của flamesegment
         int yt = y;
         // xem từ center đến radius, xử lý cụ thể khi gặp bomber, brick và enemy, wall
@@ -72,24 +71,24 @@ public class Flame extends StaticEntity {
             } else if (entity instanceof Brick) { // gặp brick thì set lại độ dài flame
                 radius = i;
                 // thêm flagment ở đuôi flame vào mảng flame
-                _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
+                flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
                 Brick brick = (Brick) entity;
                 brick.remove();
             } else if (entity instanceof Bomb) { // flame gặp bomb thì cho nổ ngay lập tức
                 radius = i - 1;
-                ((Bomb) entity)._timeToExplode = 0;
+                ((Bomb) entity).timeToExplode = 0;
 
             } else {
                 if (i == radius) { // flamesegment đuôi có hình ảnh khác với thân
-                    _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
+                    flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, true));
                 } else {
-                    _flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, false));
+                    flameSegments.add(new FlameSegment(new Coordinates(xt, yt), direction, false));
                 }
             }
         }
     }
 
-    public List<FlameSegment> get_flameSegments() {
-        return _flameSegments;
+    public List<FlameSegment> getFlameSegments() {
+        return flameSegments;
     }
 }

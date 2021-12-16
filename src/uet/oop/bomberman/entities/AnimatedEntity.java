@@ -12,31 +12,30 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.io.IOException;
 
 public abstract class AnimatedEntity extends Entity implements Animated {
-    protected boolean _alive = true;
-    protected boolean _moving = false;
-    protected boolean _bombpass = false;
-    protected boolean _flamepass = false;
-    protected boolean _brickpass = false;
+    protected boolean alive = true;
+    protected boolean moving = false;
+    protected boolean bombPass = false;
+    protected boolean flamePass = false;
+    protected boolean brickPass = false;
     protected int speed = 1;
-    protected int xa = 0, ya = 0;
+    protected int distanceX = 0, distanceY = 0;
 
-    protected int _animate = 0;
-    protected Coordinates d = new Coordinates(0, 0);
+    protected int animate = 0;
+    protected Coordinates direct = new Coordinates(0, 0);
 
     public AnimatedEntity(Coordinates tile) {
         super(tile);
     }
 
-    //@Override
     public abstract void update();
 
     protected abstract void handleDirection();
 
     protected void move(double xa, double ya) {
-        if (d.getX() > 0) _direction = DIRECTION.RIGHT;
-        if (d.getX() < 0) _direction = DIRECTION.LEFT;
-        if (d.getY() > 0) _direction = DIRECTION.DOWN;
-        if (d.getY() < 0) _direction = DIRECTION.UP;
+        if (direct.getX() > 0) direction = DIRECTION.RIGHT;
+        if (direct.getX() < 0) direction = DIRECTION.LEFT;
+        if (direct.getY() > 0) direction = DIRECTION.DOWN;
+        if (direct.getY() < 0) direction = DIRECTION.UP;
 
         pixel.setY((int) (pixel.getY() + ya));
 
@@ -46,9 +45,9 @@ public abstract class AnimatedEntity extends Entity implements Animated {
     }
 
     public void die() {
-        if (!_alive) return;
-        this._alive = false;
-        _animate = 0;
+        if (!alive) return;
+        this.alive = false;
+        animate = 0;
         if (this instanceof Enemy) {
             BombermanGame.setDead((Enemy) this);
             Map.setTarget(Map.getTarget() - 1);
@@ -59,14 +58,14 @@ public abstract class AnimatedEntity extends Entity implements Animated {
 
     protected boolean canMoveToDirection(int x, int y) {
         Entity entity = BombermanGame.getEntityAt(tile.getX() + x, tile.getY() + y);
-        return !(entity instanceof Wall) && (_brickpass || !(entity instanceof Brick)) && (_bombpass || !(entity instanceof Bomb));
+        return !(entity instanceof Wall) && (brickPass || !(entity instanceof Brick)) && (bombPass || !(entity instanceof Bomb));
     }
 
 
     public void loadAnimated(Sprite sprite1, Sprite sprite2, Sprite sprite3) {
         img = sprite1.getFxImage();
-        if (_moving) {
-            img = Sprite.movingSprite(sprite2, sprite3, _animate, 20).getFxImage();
+        if (moving) {
+            img = Sprite.movingSprite(sprite2, sprite3, animate, 20).getFxImage();
         }
     }
 
@@ -75,7 +74,7 @@ public abstract class AnimatedEntity extends Entity implements Animated {
                                 Sprite right1, Sprite right2, Sprite right3,
                                 Sprite up1, Sprite up2, Sprite up3,
                                 Sprite down1, Sprite down2, Sprite down3) {
-        switch (_direction) {
+        switch (direction) {
             case UP:
                 loadAnimated(up1, up2, up3);
                 break;
@@ -94,34 +93,19 @@ public abstract class AnimatedEntity extends Entity implements Animated {
         }
     }
 
-    public boolean is_flamepass() {
-        return _flamepass;
+    public boolean isFlamePass() {
+        return flamePass;
     }
 
-    public void set_bombpass(boolean _bombpass) {
-        this._bombpass = _bombpass;
-    }
 
-    public void set_flamepass(boolean _flamepass) {
-        this._flamepass = _flamepass;
-    }
-
-    public void set_brickpass(boolean _brickpass) {
-        this._brickpass = _brickpass;
-    }
-
-    public Coordinates getD() {
-        return d;
-    }
-
-    public void setD(Coordinates d) {
-        this.d = d;
+    public Coordinates getDirect() {
+        return direct;
     }
 
     protected abstract void handleCollision() throws IOException;
 
-    public boolean is_alive() {
-        return _alive;
+    public boolean isAlive() {
+        return alive;
     }
 
 }

@@ -12,57 +12,57 @@ public class Kondoria extends Enemy {
     private boolean generative;
 
     public Kondoria(Coordinates tile) {
-        super(tile, 100);
+        super(tile);
         img = Sprite.kondoria_left1.getFxImage();
-        ya = speed;
+        distanceY = speed;
         generative = true;
     }
 
     @Override
     protected void handleDirection() {
-        if (d.getX() == 0 && ya==0) {
-            if (xa <= 0) {
+        if (direct.getX() == 0 && distanceY ==0) {
+            if (distanceX <= 0) {
                 if (canMoveToDirection(-1, 0)) {
-                    xa = -speed;
-                    d.setX(-Sprite.SCALED_SIZE);
+                    distanceX = -speed;
+                    direct.setX(-Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(1, 0)) {
-                    xa = speed;
-                    d.setX(Sprite.SCALED_SIZE);
+                    distanceX = speed;
+                    direct.setX(Sprite.SCALED_SIZE);
                 } else {
-                    xa = 0;
+                    distanceX = 0;
                 }
-            } else if (xa >= 0) {
+            } else if (distanceX >= 0) {
                 if (canMoveToDirection(1, 0)) {
-                    xa = speed;
-                    d.setX(Sprite.SCALED_SIZE);
+                    distanceX = speed;
+                    direct.setX(Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(-1, 0)) {
-                    xa = -speed;
-                    d.setX(-Sprite.SCALED_SIZE);
+                    distanceX = -speed;
+                    direct.setX(-Sprite.SCALED_SIZE);
                 } else {
-                    xa = 0;
+                    distanceX = 0;
                 }
             }
         }
-        if (d.getY() == 0 && xa==0) {
-            if (ya <= 0) {
+        if (direct.getY() == 0 && distanceX ==0) {
+            if (distanceY <= 0) {
                 if (canMoveToDirection(0, -1)) {
-                    ya = -speed;
-                    d.setY(-Sprite.SCALED_SIZE);
+                    distanceY = -speed;
+                    direct.setY(-Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(0, 1)) {
-                    ya = speed;
-                    d.setY(Sprite.SCALED_SIZE);
+                    distanceY = speed;
+                    direct.setY(Sprite.SCALED_SIZE);
                 } else {
-                    ya = 0;
+                    distanceY = 0;
                 }
-            } else if (ya >= 0) {
+            } else if (distanceY >= 0) {
                 if (canMoveToDirection(0, 1)) {
-                    ya = speed;
-                    d.setY(Sprite.SCALED_SIZE);
+                    distanceY = speed;
+                    direct.setY(Sprite.SCALED_SIZE);
                 } else if (canMoveToDirection(0, -1)) {
-                    ya = -speed;
-                    d.setY(-Sprite.SCALED_SIZE);
+                    distanceY = -speed;
+                    direct.setY(-Sprite.SCALED_SIZE);
                 } else {
-                    ya = 0;
+                    distanceY = 0;
                 }
             }
         }
@@ -73,7 +73,7 @@ public class Kondoria extends Enemy {
     @Override
     public void update() {
         super.update();
-        if (!_alive) {
+        if (!alive) {
             return;
         }
         proliferate();
@@ -88,7 +88,7 @@ public class Kondoria extends Enemy {
     }
 
     private void proliferate() {
-        if (generative && _animate % 600 == 0) {
+        if (generative && animate % 600 == 0) {
             BombermanGame.setEnemy(new Kondoria(tile));
             generative = false;
         }

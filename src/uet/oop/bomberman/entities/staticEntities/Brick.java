@@ -40,7 +40,6 @@ public class Brick extends StaticEntity implements Animated {
                 return;
             }
             loadAnimated(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2);
-
         }
     }
 
