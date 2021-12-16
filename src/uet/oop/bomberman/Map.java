@@ -47,6 +47,9 @@ public class Map {
                         BombermanGame.setItem(new ItemFlame(new Coordinates(j, i)));
                         BombermanGame.setBrick(new Brick(new Coordinates(j, i)));
                         break;
+                    case 'w':
+                        BombermanGame.setItem(new ItemFlame(new Coordinates(j, i)));
+                        break;
                     case 's':
                         BombermanGame.setItem(new ItemSpeed(new Coordinates(j, i)));
                         BombermanGame.setBrick(new Brick(new Coordinates(j, i)));

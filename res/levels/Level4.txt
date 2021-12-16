@@ -1,14 +1,14 @@
 4 13 31
 ###############################
+#                 w           #
 #                             #
-# f             f f  ff    f  #
-#  f     f     f  f  f f   f  #
-#   f   f f   f   f  f  f  f  #
-#    f f   f f    f  f   f f  #
-#     f     f     f  f    ff  #
+# w             w w  ww    w  #
+#  w     w     w  w  w w   w  #
+#   w   w w   w   w  w  w  w  #
+#    w w   w w    w  w   w w  #
+#     w     w     w  w    ww  #
 #                             #
 #                             #
-#             p               #
-#                             #
+#              p              #
 #                             #
 ###############################
