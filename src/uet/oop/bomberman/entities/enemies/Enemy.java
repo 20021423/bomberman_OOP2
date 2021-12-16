@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.enemies;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
+import uet.oop.bomberman.GameSound;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -31,7 +32,7 @@ public abstract class Enemy extends AnimatedEntity {
             if (_animate == 60) {
                 BombermanGame.addPoints(_points);
                 BombermanGame.removeDead(this);
-                // GameSound.playMusic(GameSound.ENEMY_DIE);
+                GameSound.playMusic(GameSound.ENEMY_DIE);
             }
         }
 

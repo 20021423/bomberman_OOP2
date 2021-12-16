@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.staticEntities;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
+import uet.oop.bomberman.GameSound;
 import uet.oop.bomberman.entities.Animated;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -33,7 +34,7 @@ public class Bomb extends StaticEntity implements Animated {
     public void update() {
         animate();
         if (_timeToExplode < 0) {
-            //GameSound.playMusic(GameSound.BONG_BANG);
+            GameSound.playMusic(GameSound.BONG_BANG);
             bombExplode();
             return;
         }

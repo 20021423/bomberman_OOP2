@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Coordinates;
+import uet.oop.bomberman.GameSound;
 import uet.oop.bomberman.Map;
 import uet.oop.bomberman.entities.staticEntities.Item;
 import uet.oop.bomberman.entities.staticEntities.Portal;
@@ -59,10 +60,11 @@ public class Bomber extends AnimatedEntity {
         if (entity instanceof Enemy) {
             bomber_life--;
             die();
+            GameSound.playMusic(GameSound.BOMBER_DIE);
         }
         if (entity instanceof Item) {
             ((Item) entity).getItem();
-            //sound
+            GameSound.playMusic(GameSound.ITEM);
         }
         if (entity instanceof Portal) {
             try {
@@ -71,6 +73,7 @@ public class Bomber extends AnimatedEntity {
                     bomb = 1;
                     BombermanGame.getBomber().setSpeed(1);
                     BombermanGame.createMap(Map.getLevel() + 1);
+                    GameSound.playMusic(GameSound.WIN);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

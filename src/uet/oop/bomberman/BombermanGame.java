@@ -15,10 +15,13 @@ import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.input.Keyboard;
 
+import javax.sound.sampled.Clip;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static uet.oop.bomberman.GameSound.loopMusic;
 
 public class BombermanGame extends Application {
     public static Stage stage = new Stage();
@@ -43,7 +46,7 @@ public class BombermanGame extends Application {
     private static List<Grass> grasses = new ArrayList<>();
     private static List<Enemy> dead = new ArrayList<>();
     public static Keyboard input = new Keyboard();
-
+    public static Clip THREAD_SOUNDTRACK = loopMusic(GameSound.PLAYGAME);
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -170,7 +173,7 @@ public class BombermanGame extends Application {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-
+        initPLayThread();
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -181,10 +184,31 @@ public class BombermanGame extends Application {
         timer.start();
 
         createMap(1);
-
+        BombermanGame.THREAD_SOUNDTRACK.loop(Clip.LOOP_CONTINUOUSLY);
 //       Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
 //        entities.add(bomberman);
     }
+    public void initPLayThread() {
+        AnimationTimer playThread = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                update();
+            }
+
+            @Override
+            public void start() {
+                THREAD_SOUNDTRACK.loop(Clip.LOOP_CONTINUOUSLY);
+                super.start();
+            }
+
+            @Override
+            public void stop() {
+                THREAD_SOUNDTRACK.stop();
+                super.stop();
+            }
+        };
+    }
+
 
     public static void createMap(int level) throws IOException {
 //        for (int i = 0; i < WIDTH; i++) {
