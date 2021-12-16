@@ -217,37 +217,28 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-//        flames.forEach(Flame::update);
         for (int i = 0; i < flames.size(); i++) {
             flames.get(i).update();
         }
-//        for (Entity _brick : bricks) {
-//            Brick brick = (Brick) _brick;
-//            brick.update();
-//        }
+
         for (int i = 0; i < bricks.size(); i++) {
             Brick brick = (Brick) bricks.get(i);
             brick.update();
         }
-        for (Entity _enemy : enemies) {
-            AnimatedEntity enemy = (AnimatedEntity) _enemy;
+
+        for (int i = 0; i < enemies.size(); i++) {
+            AnimatedEntity enemy = (AnimatedEntity) enemies.get(i);
             enemy.update();
         }
-
-//        for (Entity _bomb : bombs) {
-//            Bomb bomb = (Bomb) _bomb;
-//            bomb.update();
-//        }
 
         for (int i = 0; i < bombs.size(); i++) {
             Bomb bomb = (Bomb) bombs.get(i);
             bomb.update();
         }
-        for (Entity _enemy : dead) {
-            AnimatedEntity enemy = (AnimatedEntity) _enemy;
+        for (int i = 0; i < dead.size(); i++) {
+            AnimatedEntity enemy = (AnimatedEntity) dead.get(i);
             enemy.update();
         }
-
         if (bomber != null) {
             bomber.update();
         }
