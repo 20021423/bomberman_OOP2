@@ -12,7 +12,7 @@ import java.io.*;
 public class Map {
     public static Map instance = null;
 
-    private int level;
+    private static int level;
     private int rows;
     private int cols;
     private static int target;
@@ -33,7 +33,7 @@ public class Map {
         FileReader fr = new FileReader(new File("res/levels/Level" + level + ".txt"));
         BufferedReader br = new BufferedReader(fr);
         String[] line = br.readLine().split("\\s+");
-        level = Integer.parseInt(line[0]);
+        Map.level = Integer.parseInt(line[0]);
         rows = Integer.parseInt(line[1]);
         cols = Integer.parseInt(line[2]);
         for (int i = 0; i < rows; i++) {
@@ -99,7 +99,7 @@ public class Map {
     }
 
 
-    public int getLevel() {
+    public static int getLevel() {
         return level;
     }
 

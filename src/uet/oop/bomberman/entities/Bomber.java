@@ -67,7 +67,10 @@ public class Bomber extends AnimatedEntity {
         if (entity instanceof Portal) {
             try {
                 if (Map.getTarget() == 0) {
-                    BombermanGame.createMap(2);
+                    Bomb.setDamage(1);
+                    bomb = 1;
+                    BombermanGame.getBomber().setSpeed(1);
+                    BombermanGame.createMap(Map.getLevel() + 1);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
