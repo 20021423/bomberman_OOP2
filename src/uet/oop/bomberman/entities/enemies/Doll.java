@@ -10,6 +10,7 @@ import java.util.Random;
 
 /**
  * gặp có thể đi xuyên qua Brick, gặp Wall thì đi lên hoặc xuống.
+ * Chỉ đi một phương, gặp wall mới đổi phương khác (hướng dọc hoặc ngang)
  */
 public class Doll extends Enemy {
     private static Random random = new Random();

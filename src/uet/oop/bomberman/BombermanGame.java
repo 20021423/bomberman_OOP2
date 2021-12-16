@@ -217,9 +217,16 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        flames.forEach(Flame::update);
-        for (Entity _brick : bricks) {
-            Brick brick = (Brick) _brick;
+//        flames.forEach(Flame::update);
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).update();
+        }
+//        for (Entity _brick : bricks) {
+//            Brick brick = (Brick) _brick;
+//            brick.update();
+//        }
+        for (int i = 0; i < bricks.size(); i++) {
+            Brick brick = (Brick) bricks.get(i);
             brick.update();
         }
         for (Entity _enemy : enemies) {
@@ -227,8 +234,13 @@ public class BombermanGame extends Application {
             enemy.update();
         }
 
-        for (Entity _bomb : bombs) {
-            Bomb bomb = (Bomb) _bomb;
+//        for (Entity _bomb : bombs) {
+//            Bomb bomb = (Bomb) _bomb;
+//            bomb.update();
+//        }
+
+        for (int i = 0; i < bombs.size(); i++) {
+            Bomb bomb = (Bomb) bombs.get(i);
             bomb.update();
         }
         for (Entity _enemy : dead) {

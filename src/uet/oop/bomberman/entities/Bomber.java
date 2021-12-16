@@ -141,7 +141,8 @@ public class Bomber extends AnimatedEntity {
 
     @Override
     protected void afterDie() {
-        loadAnimated(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3);
+        //loadAnimated(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3);
+        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3,_animate,20).getFxImage();
         if (time_exit_game <= 0) {
             BombermanGame.stage.hide();
         }
