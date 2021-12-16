@@ -170,7 +170,7 @@ public class BombermanGame extends Application {
 
     public static void createMap(int level) throws IOException {
         resetMap();
-        Map.getInstance().loadMap(level);
+        Map.loadMap(level);
     }
 
     private static void resetMap() {

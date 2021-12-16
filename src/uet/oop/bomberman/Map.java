@@ -13,24 +13,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Map {
-    public static Map instance = null;
-
     private static int level;
-    private int rows;
-    private int cols;
+    private static int rows;
+    private static int cols;
     private static int target;
-
-    private Map() {
-    }
-
-    public static Map getInstance() {
-        if (instance == null) {
-            instance = new Map();
-        }
-        return instance;
-    }
-
-    public void loadMap(int level) throws IOException {
+    
+    public static void loadMap(int level) throws IOException {
         FileReader fr = new FileReader(new File("res/levels/Level" + level + ".txt"));
         BufferedReader br = new BufferedReader(fr);
         String[] line = br.readLine().split("\\s+");
