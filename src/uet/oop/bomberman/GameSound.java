@@ -27,7 +27,7 @@ public class GameSound {
             AudioPlayer.player.start(audio);
 
         } catch (Exception e) {
-            System.out.println("File path was not found!");
+            System.out.println("Error in file path!");
         }
     }
 

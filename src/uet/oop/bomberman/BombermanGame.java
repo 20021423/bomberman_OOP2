@@ -164,7 +164,7 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        createMap(4);
+        createMap(1);
         BombermanGame.THREAD_SOUNDTRACK.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
